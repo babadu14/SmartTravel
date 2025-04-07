@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Weather</title>
+</head>
+<body>
+    <h1>Check Weather by City</h1>
+    <form method="get">
+        <input type="text" name="location" placeholder="Enter a city" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if weather %}
+        <h2>Weather in {{ city }}:</h2>
+        <p>Condition: {{ weather.current.condition.text }}</p>
+        <p>Temperature: {{ weather.current.temp_c }}°C</p>
+        <img src="https:{{ weather.current.condition.icon }}" alt="Weather icon">
+    {% elif city %}
+        <p>Sorry, couldn't find weather info for {{ city }}</p>
+    {% endif %}
+</body>
+</html>
