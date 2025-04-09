@@ -10,5 +10,9 @@ class Itinerary(models.Model):
 
 
 class Activity(models.Model):
-    itinerary = models.ForeignKey(Itinerary, on_delete=models.CASCADE)
-    
+    itinerary = models.ForeignKey(Itinerary, related_name='activities', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    start_time = models.DateTimeField()
+    type = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)   
