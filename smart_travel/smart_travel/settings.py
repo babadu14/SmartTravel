@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'itinerary',
     'users',
-    'rest_framework'
+    'rest_framework',
+    'drf_yasg',
+    'rest_framework_simplejwt'
 ]
 
 MIDDLEWARE = [
@@ -124,3 +126,32 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+SWAGGER_SETTINGS = {
+    "USER_SESSION_AUTH": False,
+    "SECURITY_DEFINITIONS":{
+        "Bearer":{
+            "type":"apiKey",
+            "name": "Authorization",
+            "in":"header",
+            "description":"შეიყვანეთ JWT ტოკენი შემდეგი პრინციპით Bearer <Token>"
+        }
+    }
+}
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+AUTH_USER_MODEL = 'users.User'
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+}

@@ -40,10 +40,10 @@ class ActivityViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        itinerary_id = self.kwargs['itinerary_id']
-        return Activity.objects.get(id=itinerary_id)
+        itinerary_id = self.kwargs['itinerary_pk']
+        return Activity.objects.filter(id=itinerary_id)
     
     def perform_create(self, serializer):
-        itinerary_id = self.kwargs['itinerary_id']
+        itinerary_id = self.kwargs['itinerary_pk']
         itinerary = Itinerary.objects.get(id=itinerary_id)
-        return serializer.save(itinerary=itinerary)
+        return serializer.save(itinerary=itinerary, users=self.request.user)
